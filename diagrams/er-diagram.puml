@@ -1,1 +1,69 @@
+@startuml
 
+hide circle
+hide methods
+hide stereotypes
+
+skinparam entity {
+  BackgroundColor White
+  BorderColor Black
+}
+
+' ===== Сущности =====
+
+entity "Группа" as Group {
+  *ID_группы : INT
+  --
+  Название : TEXT
+  Курс : INT
+}
+
+entity "Преподаватель" as Teacher {
+  *ID_преподавателя : INT
+  --
+  ФИО : TEXT
+  Должность : TEXT
+}
+
+entity "Предмет" as Subject {
+  *ID_предмета : INT
+  --
+  Название : TEXT
+  Краткое_название : TEXT
+}
+
+entity "Аудитория" as Room {
+  *ID_аудитории : INT
+  --
+  Корпус : TEXT
+  Номер : TEXT
+}
+
+entity "Временной слот" as TimeSlot {
+  *ID_слота : INT
+  --
+  День_недели : TEXT
+  Номер_пары : INT
+  Тип_недели : TEXT
+}
+
+entity "Занятие" as Lesson {
+  *ID_занятия : INT
+  --
+  Группа_ID : INT
+  Преподаватель_ID : INT
+  Предмет_ID : INT
+  Аудитория_ID : INT
+  Слот_ID : INT
+  Вид_занятия : TEXT
+}
+
+' ===== Связи (1:N) =====
+
+Group      --o{ Lesson : "группа"
+Teacher    --o{ Lesson : "ведёт"
+Subject    --o{ Lesson : "по предмету"
+Room       --o{ Lesson : "проходит в"
+TimeSlot   ||--o{ Lesson : "во время"
+
+@enduml
