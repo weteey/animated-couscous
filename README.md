@@ -32,6 +32,10 @@
 - activity_teacher.puml / activity_teacher.png
 - activity_student.puml / activity_student.png
 
+## ER-диаграмма базы данных
+
+![ER диаграмма](diagrams/er_diagram.png)
+
 ## Скриншоты
 
 Скриншоты выполнения работы — в папке:  
