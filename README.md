@@ -34,7 +34,7 @@
 
 ## ER-диаграмма базы данных
 
-![ER диаграмма](diagrams/er_diagram.png)
+![ER диаграмма](diagrams/er-diagram.png)
 
 ## Скриншоты
 
