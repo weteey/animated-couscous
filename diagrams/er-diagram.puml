@@ -1,69 +1,69 @@
 @startuml
-
 hide circle
 hide methods
 hide stereotypes
-
-skinparam entity {
-  BackgroundColor White
-  BorderColor Black
-}
+skinparam linetype ortho
 
 ' ===== Сущности =====
 
 entity "Группа" as Group {
-  *ID_группы : INT
+  *ID_группы
   --
-  Название : TEXT
-  Курс : INT
+  Название_группы
+  Курс
 }
 
-entity "Преподаватель" as Teacher {
-  *ID_преподавателя : INT
+entity "Преподаватели" as Teacher {
+  *ID_преподавателя
   --
-  ФИО : TEXT
-  Должность : TEXT
+  ФИО
+  Предметы_которые_ведёт
 }
 
-entity "Предмет" as Subject {
-  *ID_предмета : INT
+entity "Предметы" as Subject {
+  *ID_предмета
   --
-  Название : TEXT
-  Краткое_название : TEXT
+  Название_предмета
+  Тип_занятия_(лекция_или_практика)
+  Почта_для_связи
+  Преподаватель
 }
 
 entity "Аудитория" as Room {
-  *ID_аудитории : INT
+  *ID_аудитории
   --
-  Корпус : TEXT
-  Номер : TEXT
+  Корпус
+  Аудитория
 }
 
-entity "Временной слот" as TimeSlot {
-  *ID_слота : INT
+entity "Дата_и_время" as DateTime {
+  *ID_слота
   --
-  День_недели : TEXT
-  Номер_пары : INT
-  Тип_недели : TEXT
+  День_недели
+  Номер_пары
+  Тип_недели_(чётная_нечётная)
 }
 
-entity "Занятие" as Lesson {
-  *ID_занятия : INT
+entity "Расписание" as Schedule {
+  *ID_записи
   --
-  Группа_ID : INT
-  Преподаватель_ID : INT
-  Предмет_ID : INT
-  Аудитория_ID : INT
-  Слот_ID : INT
-  Вид_занятия : TEXT
+  Группа
+  Преподаватель
+  Предмет
+  Аудитория
+  Дата_и_время
+  Тип_занятия
 }
 
-' ===== Связи (1:N) =====
+' ===== Связи =====
+' Предмет закреплён за преподавателем
+Teacher ||--o{ Subject : "ведёт"
 
-Group      --o{ Lesson : "группа"
-Teacher    --o{ Lesson : "ведёт"
-Subject    --o{ Lesson : "по предмету"
-Room       --o{ Lesson : "проходит в"
-TimeSlot   ||--o{ Lesson : "во время"
+' Расписание: каждая сущность может встречаться много раз в расписании
+Group    ||--o{ Schedule : "для группы"
+Teacher  ||--o{ Schedule : "ведёт"
+Subject  ||--o{ Schedule : "по предмету"
+Room     ||--o{ Schedule : "в аудитории"
+DateTime ||--o{ Schedule : "во время"
 
 @enduml
